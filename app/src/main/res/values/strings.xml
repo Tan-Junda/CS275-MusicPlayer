@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MusicPlayer</string>
+    <string name="new_music">Add new audio</string>
+    <string name="delete_music">Delete audio file</string>
+    <string name="image_description">Preview image</string>
+    <string name="dialog_cancle">Cancle</string>
+    <string name="dialog_delete">Delete</string>
+    <string name="delete_dialog">Sure to delete?</string>
 </resources>
