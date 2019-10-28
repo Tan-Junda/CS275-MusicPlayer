@@ -1,6 +1,8 @@
 package jtan5.example.musicplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,14 +72,16 @@ public class PlayerListFragment extends Fragment {
 
     }
 
-    private class PlayerHolder extends RecyclerView.ViewHolder {
+
+
+    private class PlayerHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         private TextView mTitleTextView;
         private ImageView mImageView;
-        private ImageButton mStopButton;
-        private ImageButton mPlayButton;
         private MusicPlayer mPlayer;
         public PlayerHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_player, parent, false));
+            itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_title);
             mImageView = (ImageView) itemView.findViewById(R.id.list_playing);
         }
@@ -87,12 +91,12 @@ public class PlayerListFragment extends Fragment {
             mTitleTextView.setText(mPlayer.getmTitle());
             mImageView.setVisibility(mPlayer.isPlaying() ? View.VISIBLE : View.GONE);
         }
-
-//        @Override
-//        public void onClick(View view) {
-//            Intent intent = MusicPlayerActivity.newIntent(getActivity(), mPlayer.getmId());
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(getActivity(), mPlayer.getmTitle(), Toast.LENGTH_SHORT).show();
+            //            Intent intent = MusicPlayerActivity.newIntent(getActivity(), mPlayer.getmId());
 //            startActivity(intent);
-//        }
+        }
     }
 
     private class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {

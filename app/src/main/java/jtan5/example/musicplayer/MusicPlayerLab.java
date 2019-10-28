@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class MusicPlayerLab {
-    private ArrayList<MusicPlayer> mMusics;
     private static MusicPlayerLab sMusicLab;
-    private Context mAppContext;;
+    private ArrayList<MusicPlayer> mMusics;
+    private Context mAppContext;
 
     private MusicPlayerLab (Context appContext) {
         mAppContext = appContext;
-        mMusics = new ArrayList<MusicPlayer>();
+        mMusics = new ArrayList<>();
         for (int i=0; i<100; i++) {
             MusicPlayer m = new MusicPlayer();
             m.setmTitle("Music #" + i);
@@ -37,9 +37,9 @@ public class MusicPlayerLab {
         return null;
     }
 
-    public static MusicPlayerLab get(Context m) {
+    public static MusicPlayerLab get(Context context) {
         if (sMusicLab == null) {
-            sMusicLab = new MusicPlayerLab(m.getApplicationContext());
+            sMusicLab = new MusicPlayerLab(context);
         }
         return sMusicLab;
     }

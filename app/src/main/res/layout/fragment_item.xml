@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/editText"
         android:layout_width="122dp"
         android:layout_height="56dp"
         android:gravity="center"
