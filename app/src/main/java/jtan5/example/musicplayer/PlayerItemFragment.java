@@ -1,5 +1,7 @@
 package jtan5.example.musicplayer;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.media.Image;
@@ -14,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toolbar;
 
+import java.util.UUID;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -25,7 +29,16 @@ public class PlayerItemFragment extends Fragment {
     private ImageButton mPauseButton;
     private ImageButton mNextButton;
     private ImageButton mPreviousButton;
+    private MusicPlayer mMusic;
+    public static final String EXTRA_MUSIC_ID = "music.MUSIC_ID";
     private AudioPlayer mPlayer = new AudioPlayer();
+    public static PlayerItemFragment newInstance(UUID musicId) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_MUSIC_ID, musicId);
+        PlayerItemFragment fragment = new PlayerItemFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public void onDestroy() {
         super.onDestroy();
@@ -35,6 +48,8 @@ public class PlayerItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UUID musicId = (UUID) getArguments().getSerializable(EXTRA_MUSIC_ID);
+        mMusic = new MusicPlayer();
         setHasOptionsMenu(true);
         setRetainInstance(true);
     }
@@ -97,5 +112,13 @@ public class PlayerItemFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_item, menu);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) return;
+        //if (resultCode == REQUEST_DELETE) {
+
+        //}
     }
 }
