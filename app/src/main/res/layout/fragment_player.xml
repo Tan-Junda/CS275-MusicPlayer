@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/editText"
+    <EditText
+        android:id="@+id/player_title"
         android:layout_width="122dp"
         android:layout_height="56dp"
         android:gravity="center"

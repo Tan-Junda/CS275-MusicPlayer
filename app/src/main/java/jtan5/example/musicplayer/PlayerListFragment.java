@@ -64,8 +64,8 @@ public class PlayerListFragment extends Fragment {
     }
 
     public void updateUI() {
-        MusicPlayerLab musicPlayerLab = MusicPlayerLab.get(getActivity());
-        List<MusicPlayer> musicPlayers = musicPlayerLab.getMusicPlayers();
+        PlayerLab musicPlayerLab = PlayerLab.get(getActivity());
+        List<Player> musicPlayers = musicPlayerLab.getPlayers();
 
         mAdapter = new PlayerAdapter(musicPlayers);
         mPlayerRecyclerView.setAdapter(mAdapter);
@@ -78,7 +78,7 @@ public class PlayerListFragment extends Fragment {
             implements View.OnClickListener {
         private TextView mTitleTextView;
         private ImageView mImageView;
-        private MusicPlayer mPlayer;
+        private Player mPlayer;
         public PlayerHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_player, parent, false));
             itemView.setOnClickListener(this);
@@ -86,23 +86,22 @@ public class PlayerListFragment extends Fragment {
             mImageView = (ImageView) itemView.findViewById(R.id.list_playing);
         }
 
-        public void bind(MusicPlayer player) {
+        public void bind(Player player) {
             mPlayer = player;
-            mTitleTextView.setText(mPlayer.getmTitle());
+            mTitleTextView.setText(mPlayer.getTitle());
             mImageView.setVisibility(mPlayer.isPlaying() ? View.VISIBLE : View.GONE);
         }
         @Override
         public void onClick(View view) {
-            Toast.makeText(getActivity(), mPlayer.getmTitle(), Toast.LENGTH_SHORT).show();
-            //            Intent intent = MusicPlayerActivity.newIntent(getActivity(), mPlayer.getmId());
-//            startActivity(intent);
+            Intent intent = PlayerActivity.newIntent(getActivity(), mPlayer.getId());
+            startActivity(intent);
         }
     }
 
     private class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
-        private List<MusicPlayer> mMusics;
+        private List<Player> mMusics;
 
-        public PlayerAdapter(List<MusicPlayer> musicPlayers) {
+        public PlayerAdapter(List<Player> musicPlayers) {
             mMusics = musicPlayers;
         }
 
@@ -114,7 +113,7 @@ public class PlayerListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(PlayerHolder holder, int position) {
-            MusicPlayer player = mMusics.get(position);
+            Player player = mMusics.get(position);
             holder.bind(player);
         }
 
