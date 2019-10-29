@@ -1,5 +1,6 @@
 package jtan5.example.musicplayer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.security.auth.callback.Callback;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +26,26 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PlayerListFragment extends Fragment {
     private RecyclerView mPlayerRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private Callbacks mCallbacks;
+
+    /*
+        Required interface for hosting activities.
+     */
+    public interface Callbacks {
+        void onPlayerSelected(Player player);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (Callbacks)activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +80,10 @@ public class PlayerListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.new_music:
+                Player player = new Player();
+                PlayerLab.get(getActivity()).addPlayer(player);
+                updateUI();
+                mCallbacks.onPlayerSelected(player);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -93,8 +120,7 @@ public class PlayerListFragment extends Fragment {
         }
         @Override
         public void onClick(View view) {
-            Intent intent = PlayerActivity.newIntent(getActivity(), mPlayer.getId());
-            startActivity(intent);
+            mCallbacks.onPlayerSelected(mPlayer);
         }
     }
 
@@ -124,4 +150,9 @@ public class PlayerListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 }

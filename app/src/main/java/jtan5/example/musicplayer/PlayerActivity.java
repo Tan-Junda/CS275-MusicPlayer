@@ -8,6 +8,7 @@ import java.util.UUID;
 import androidx.fragment.app.Fragment;
 
 public class PlayerActivity extends SingleFragmentActivity {
+
     private static final String EXTRA_PLAYER_ID = "com.jtan5.example.musicplayer.player_id";
 
     public static Intent newIntent(Context packageContext, UUID playerId) {

@@ -12,8 +12,11 @@ public class AudioPlayer {
         }
     }
 
+    public void pause() {
+        mPlayer.pause();
+    }
+
     public void play(Context c) {
-        stop();
         mPlayer = MediaPlayer.create(c, R.raw.abc);
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {

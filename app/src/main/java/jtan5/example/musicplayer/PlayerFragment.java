@@ -1,5 +1,7 @@
 package jtan5.example.musicplayer;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,8 +21,29 @@ public class PlayerFragment extends Fragment {
     private EditText mTitleField;
     private ImageButton mPlayButton;
     private ImageButton mStopButton;
+    private ImageButton mPauseButton;
     private boolean isPlaying;
     private AudioPlayer mSounder;
+    private Callbacks mCallbacks;
+
+    /**
+     * Required interface for holding activities.
+     */
+    public interface Callbacks {
+        void onPlayerUpdated(Player player);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     public static PlayerFragment newInstance(UUID playerId) {
         Bundle args = new Bundle();
@@ -44,6 +67,7 @@ public class PlayerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_player, parent, false);
         mTitleField = (EditText) v.findViewById(R.id.player_title);
+        mCallbacks.onPlayerUpdated(mPlayer);
         mTitleField.setText(mPlayer.getTitle());
         mTitleField.addTextChangedListener( new TextWatcher() {
             public void onTextChanged(CharSequence c, int start, int before, int count) {
@@ -66,6 +90,7 @@ public class PlayerFragment extends Fragment {
                 mSounder.play(getActivity());
                 isPlaying = true;
                 mPlayer.setPlaying(isPlaying);
+                mCallbacks.onPlayerUpdated(mPlayer);
             }
         });
         mStopButton = (ImageButton) v.findViewById(R.id.stop_button);
@@ -74,7 +99,18 @@ public class PlayerFragment extends Fragment {
                 mSounder.stop();
                 isPlaying = false;
                 mPlayer.setPlaying(isPlaying);
+                mCallbacks.onPlayerUpdated(mPlayer);
             }
+        });
+
+        mPauseButton = (ImageButton) v.findViewById(R.id.pause_button);
+        mPauseButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mSounder.pause();
+                    isPlaying = false;
+                    mPlayer.setPlaying(isPlaying);
+                    mCallbacks.onPlayerUpdated(mPlayer);
+                }
         });
 
         return v;

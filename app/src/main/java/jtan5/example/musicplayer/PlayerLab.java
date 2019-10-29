@@ -17,7 +17,6 @@ public class PlayerLab {
         for (int i = 0; i < 5; i++) {
             Player p = new Player();
             p.setTitle("Music #" + i);
-            p.setPlaying(false);
             mPlayers.add(p);
         }
     }
@@ -42,6 +41,9 @@ public class PlayerLab {
         return null;
     }
 
+    public void addPlayer(Player player) {
+        mPlayers.add(player);
+    }
 
 
 }
