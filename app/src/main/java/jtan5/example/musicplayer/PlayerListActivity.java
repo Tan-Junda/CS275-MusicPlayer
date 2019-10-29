@@ -18,19 +18,19 @@ public class PlayerListActivity extends SingleFragmentActivity implements
     }
 
     public void onPlayerSelected(Player player) {
-        if (findViewById(R.id.detailFragmentContainer) == null) {
+        if (findViewById(R.id.detail_fragment_container) == null) {
             Intent intent = PlayerPagerActivity.newIntent(this, player.getId());
             startActivity(intent);
         } else {
             Fragment newDetail = PlayerFragment.newInstance(player.getId());
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragmentContainer,
+            getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container,
                     newDetail).commit();
         }
     }
 
     public void onPlayerUpdated(Player player) {
         PlayerListFragment listFragment = (PlayerListFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+                getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         listFragment.updateUI();
 
     }
