@@ -2,10 +2,14 @@ package jtan5.example.musicplayer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -14,9 +18,12 @@ import android.widget.ImageButton;
 import java.util.UUID;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class PlayerFragment extends Fragment {
     public static final String ARG_PLAYER_ID = "player_id";
+    private static final String DIALOG_DELETE = "DialogDelete";
+    private static final int REQUEST_DELETE = 3;
     private Player mPlayer;
     private EditText mTitleField;
     private ImageButton mPlayButton;
@@ -57,6 +64,7 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         UUID playerId = (UUID)getArguments()
                 .getSerializable(ARG_PLAYER_ID);
         mPlayer = PlayerLab.get(getActivity()).getPlayer(playerId);
@@ -114,5 +122,35 @@ public class PlayerFragment extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_music:
+                FragmentManager manager = getFragmentManager();
+                DeleteDialogFragment dialog = new DeleteDialogFragment();
+                dialog.setTargetFragment(PlayerFragment.this, REQUEST_DELETE);
+                dialog.show(manager,DIALOG_DELETE);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_item, menu);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_DELETE) {
+            PlayerLab.get(getActivity()).deletePlayer(mPlayer);
+            getActivity().finish();
+        }
     }
 }

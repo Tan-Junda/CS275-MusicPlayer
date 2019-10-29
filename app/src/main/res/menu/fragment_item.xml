@@ -3,6 +3,7 @@
     <item
         android:id="@+id/delete_music"
         android:icon="@drawable/ic_action_delete"
-        android:title="@string/delete_music" />
+        android:title="@string/delete_music"
+        app:showAsAction="ifRoom|withText"/>
     />
 </menu>
