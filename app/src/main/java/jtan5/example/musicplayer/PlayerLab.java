@@ -14,7 +14,7 @@ public class PlayerLab {
     private PlayerLab(Context appContext) {
         mAppContext = appContext;
         mPlayers = new ArrayList<Player>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 16; i++) {
             Player p = new Player();
             p.setTitle("Music #" + i);
             mPlayers.add(p);
