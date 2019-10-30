@@ -15,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.security.auth.callback.Callback;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PlayerListFragment extends Fragment {
     private RecyclerView mPlayerRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private boolean mSubtitleVisible;
     private Callbacks mCallbacks;
 
     /*
@@ -74,6 +77,13 @@ public class PlayerListFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_item_list, menu);
 
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+        if (mSubtitleVisible) {
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        }  else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
+
     }
 
     @Override
@@ -85,18 +95,26 @@ public class PlayerListFragment extends Fragment {
                 updateUI();
                 mCallbacks.onPlayerSelected(player);
                 return true;
+
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void updateUI() {
-        PlayerLab musicPlayerLab = PlayerLab.get(getActivity());
-        List<Player> musicPlayers = musicPlayerLab.getPlayers();
-
-        mAdapter = new PlayerAdapter(musicPlayers);
-        mPlayerRecyclerView.setAdapter(mAdapter);
-
+    private void updateSubtitle() {
+        PlayerLab crimeLab = PlayerLab.get(getActivity());
+        int playerCount = crimeLab.getPlayers().size();
+        String subtitle = getString(R.string.subtitle_format, playerCount);
+        if (!mSubtitleVisible) {
+            subtitle = null;
+        }
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
 
@@ -125,10 +143,10 @@ public class PlayerListFragment extends Fragment {
     }
 
     private class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
-        private List<Player> mMusics;
+        private List<Player> mPlayers;
 
-        public PlayerAdapter(List<Player> musicPlayers) {
-            mMusics = musicPlayers;
+        public PlayerAdapter(List<Player> players) {
+            mPlayers = players;
         }
 
         @Override
@@ -139,15 +157,22 @@ public class PlayerListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(PlayerHolder holder, int position) {
-            Player player = mMusics.get(position);
+            Player player = mPlayers.get(position);
             holder.bind(player);
         }
-
         @Override
         public int getItemCount() {
-            return mMusics.size();
+            return mPlayers.size();
         }
 
+    }
+
+    public void updateUI() {
+        PlayerLab playerLab = PlayerLab.get(getActivity());
+        List<Player> players = playerLab.getPlayers();
+        mAdapter = new PlayerAdapter(players);
+        mPlayerRecyclerView.setAdapter(mAdapter);
+        updateSubtitle();
     }
 
     @Override

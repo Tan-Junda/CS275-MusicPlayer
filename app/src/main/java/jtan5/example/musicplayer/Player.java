@@ -12,6 +12,10 @@ public class Player {
         mId = UUID.randomUUID();
     }
 
+    public Player(UUID id) {
+        mId = id;
+    }
+
     public UUID getId() {
         return mId;
     }

@@ -5,5 +5,9 @@
         android:icon="@drawable/ic_action_add"
         android:title="@string/new_music"
         app:showAsAction="ifRoom|withText"/>
-    />
+    <item
+        android:id="@+id/show_subtitle"
+        android:title="@string/show_subtitle"
+        app:showAsAction="ifRoom"
+        />
 </menu>

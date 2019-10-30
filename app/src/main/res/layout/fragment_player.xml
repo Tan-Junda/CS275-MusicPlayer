@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="310dp"
-        android:layout_height="273dp"
+        android:layout_width="187dp"
+        android:layout_height="155dp"
         android:background="@color/colorPrimaryDark"
         android:src="@drawable/default_image"
         app:layout_constraintBottom_toBottomOf="parent"

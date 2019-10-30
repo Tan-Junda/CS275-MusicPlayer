@@ -11,7 +11,7 @@
         android:id="@+id/list_title"
         android:layout_width="285dp"
         android:layout_height="55dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:text="list1"
         android:textAlignment="textStart"
         android:textSize="18sp"
@@ -23,7 +23,7 @@
 
     <ImageView
         android:id="@+id/list_playing"
-        android:layout_width="33dp"
+        android:layout_width="32dp"
         android:layout_height="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pause_button"

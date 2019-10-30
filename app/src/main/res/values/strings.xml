@@ -6,4 +6,7 @@
     <string name="dialog_cancle">Cancle</string>
     <string name="dialog_delete">Delete</string>
     <string name="delete_dialog">Sure to delete?</string>
+    <string name="show_subtitle">Show subtitle</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$dpieces</string>
 </resources>

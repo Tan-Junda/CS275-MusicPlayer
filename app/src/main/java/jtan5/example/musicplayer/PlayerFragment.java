@@ -153,4 +153,10 @@ public class PlayerFragment extends Fragment {
             getActivity().finish();
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        PlayerLab.get(getActivity()).updatePlayer(mPlayer);
+    }
 }
