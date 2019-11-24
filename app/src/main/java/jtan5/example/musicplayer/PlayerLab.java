@@ -78,8 +78,14 @@ public class PlayerLab {
             PlayerDbSchema.PlayerTable.Cols.UUID + " = ?",
             new String[] {player.getId().toString()}
         );
+        player.getMusicPlayer(player.getId()).stop();
+    }
 
-        player.getMusicPlayer().stop();
+    public void pausePlayer(Player player) {
+        player.getMusicPlayer(player.getId()).stop();
+    }
+    public void stopPlayer(Player player) {
+        player.getMusicPlayer(player.getId()).stop();
     }
 
     public void updatePlayer(Player player) {

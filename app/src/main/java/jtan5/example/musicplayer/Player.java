@@ -1,15 +1,18 @@
 package jtan5.example.musicplayer;
 
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
+
 import java.util.UUID;
 
 public class Player {
     private UUID mId;
     private String mTitle;
     private boolean mIsPlaying;
-    private AudioPlayer musicPlayer = new AudioPlayer();
-
+    private AudioPlayer musicPlayer;
     public Player() {
         mId = UUID.randomUUID();
+        musicPlayer = new AudioPlayer(mId);
     }
 
     public Player(UUID id) {
@@ -36,7 +39,8 @@ public class Player {
         mIsPlaying = playing;
     }
 
-    public AudioPlayer getMusicPlayer() {
+    public AudioPlayer getMusicPlayer(UUID playerId) {
+        musicPlayer = new AudioPlayer(playerId);
         return musicPlayer;
     }
     @Override

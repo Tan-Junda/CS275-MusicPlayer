@@ -36,7 +36,7 @@ public class PlayerPagerActivity extends AppCompatActivity
             @Override
             public Fragment getItem(int position) {
                 Player crime = mPlayers.get(position);
-                return PlayerFragment.newInstance(crime.getId());
+                return PlayerFragment.newInstance(crime.getId()z);
             }
 
             @Override

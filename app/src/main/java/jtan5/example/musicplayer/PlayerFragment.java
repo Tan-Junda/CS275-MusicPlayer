@@ -92,13 +92,15 @@ public class PlayerFragment extends Fragment {
             }
         });
         mPlayButton = (ImageButton) v.findViewById(R.id.play_button);
-        mSounder = mPlayer.getMusicPlayer();
+        mSounder = mPlayer.getMusicPlayer(mPlayer.getId());
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mSounder.play(getActivity());
-                isPlaying = true;
-                mPlayer.setPlaying(isPlaying);
-                mCallbacks.onPlayerUpdated(mPlayer);
+                if (!isPlaying){
+                    mSounder.play(getActivity());
+                    isPlaying = true;
+                    mPlayer.setPlaying(isPlaying);
+                    mCallbacks.onPlayerUpdated(mPlayer);
+                }
             }
         });
         mStopButton = (ImageButton) v.findViewById(R.id.stop_button);
@@ -114,10 +116,10 @@ public class PlayerFragment extends Fragment {
         mPauseButton = (ImageButton) v.findViewById(R.id.pause_button);
         mPauseButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    mSounder.pause();
-                    isPlaying = false;
-                    mPlayer.setPlaying(isPlaying);
-                    mCallbacks.onPlayerUpdated(mPlayer);
+                mSounder.pause();
+                isPlaying = false;
+                mPlayer.setPlaying(isPlaying);
+                mCallbacks.onPlayerUpdated(mPlayer);
                 }
         });
 
@@ -150,7 +152,8 @@ public class PlayerFragment extends Fragment {
         }
         if (requestCode == REQUEST_DELETE) {
             PlayerLab.get(getActivity()).deletePlayer(mPlayer);
-            getActivity().finish();
+            //zgetActivity().finish();
+            updatePlayer();
         }
     }
 
@@ -158,5 +161,10 @@ public class PlayerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         PlayerLab.get(getActivity()).updatePlayer(mPlayer);
+    }
+
+    private void updatePlayer() {
+        PlayerLab.get(getActivity()).updatePlayer(mPlayer);
+        mCallbacks.onPlayerUpdated(mPlayer);
     }
 }

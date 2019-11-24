@@ -17,7 +17,8 @@ public class PlayerBaseHelper extends SQLiteOpenHelper {
                 "_id integer primary key autoincrement, " +
                 PlayerDbSchema.PlayerTable.Cols.UUID + ", " +
                 PlayerDbSchema.PlayerTable.Cols.TITLE + ", " +
-                PlayerDbSchema.PlayerTable.Cols.IS_PLAYING  +
+                PlayerDbSchema.PlayerTable.Cols.IS_PLAYING  + ", " +
+                PlayerDbSchema.PlayerTable.Cols.PLAYER  +
             ")");
     }
 
