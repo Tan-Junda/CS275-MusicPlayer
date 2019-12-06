@@ -3,6 +3,7 @@ package jtan5.example.musicplayer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,7 +31,6 @@ public class PlayerFragment extends Fragment {
     private ImageButton mStopButton;
     private ImageButton mPauseButton;
     private boolean isPlaying;
-    private AudioPlayer mSounder;
     private Callbacks mCallbacks;
 
     /**
@@ -55,7 +55,6 @@ public class PlayerFragment extends Fragment {
     public static PlayerFragment newInstance(UUID playerId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_PLAYER_ID, playerId);
-
         PlayerFragment fragment = new PlayerFragment();
         fragment.setArguments(args);
         return fragment;
@@ -92,21 +91,20 @@ public class PlayerFragment extends Fragment {
             }
         });
         mPlayButton = (ImageButton) v.findViewById(R.id.play_button);
-        mSounder = mPlayer.getMusicPlayer(mPlayer.getId());
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (!isPlaying){
-                    mSounder.play(getActivity());
-                    isPlaying = true;
-                    mPlayer.setPlaying(isPlaying);
-                    mCallbacks.onPlayerUpdated(mPlayer);
+                    mPlayer.play(getActivity());
                 }
+                isPlaying = true;
+                mPlayer.setPlaying(isPlaying);
+                mCallbacks.onPlayerUpdated(mPlayer);
             }
         });
         mStopButton = (ImageButton) v.findViewById(R.id.stop_button);
         mStopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mSounder.stop();
+                PlayerLab.get(getActivity()).stopPlayer(mPlayer);
                 isPlaying = false;
                 mPlayer.setPlaying(isPlaying);
                 mCallbacks.onPlayerUpdated(mPlayer);
@@ -115,12 +113,12 @@ public class PlayerFragment extends Fragment {
 
         mPauseButton = (ImageButton) v.findViewById(R.id.pause_button);
         mPauseButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                mSounder.pause();
+            public void onClick(View v) {
+                PlayerLab.get(getActivity()).stopPlayer(mPlayer);
                 isPlaying = false;
                 mPlayer.setPlaying(isPlaying);
                 mCallbacks.onPlayerUpdated(mPlayer);
-                }
+            }
         });
 
         return v;

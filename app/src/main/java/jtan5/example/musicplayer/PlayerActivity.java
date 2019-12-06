@@ -9,13 +9,7 @@ import androidx.fragment.app.Fragment;
 
 public class PlayerActivity extends SingleFragmentActivity {
 
-    private static final String EXTRA_PLAYER_ID = "com.jtan5.example.musicplayer.player_id";zz
-
-    public static Intent newIntent(Context packageContext, UUID playerId) {
-        Intent intent = new Intent(packageContext, PlayerActivity.class);
-        intent.putExtra(EXTRA_PLAYER_ID, playerId);
-        return intent;
-    }
+    private static final String EXTRA_PLAYER_ID = "com.jtan5.example.musicplayer.player_id";
 
    @Override
     protected Fragment createFragment() {

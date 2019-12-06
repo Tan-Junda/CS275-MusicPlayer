@@ -3,14 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F3A73F">
 
     <EditText
         android:id="@+id/player_title"
-        android:layout_width="122dp"
-        android:layout_height="56dp"
+        android:layout_width="136dp"
+        android:layout_height="124dp"
+        android:backgroundTint="#8B3216"
+        android:ellipsize="middle"
+        android:fontFamily="casual"
         android:gravity="center"
         android:text="@string/music_title"
+        android:textColor="#2D3820"
+        android:textColorHighlight="#00AA3232"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,17 +48,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.506" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="187dp"
-        android:layout_height="155dp"
-        android:background="@color/colorPrimaryDark"
-        android:src="@drawable/default_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/pause_button"
         android:layout_width="40dp"
@@ -63,6 +59,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.506" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="187dp"
+        android:layout_height="155dp"
+        android:background="@color/colorPrimaryDark"
+        android:src="@drawable/default_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,14 +78,11 @@ public class PlayerLab {
             PlayerDbSchema.PlayerTable.Cols.UUID + " = ?",
             new String[] {player.getId().toString()}
         );
-        player.getMusicPlayer(player.getId()).stop();
+        player.stop();
     }
 
-    public void pausePlayer(Player player) {
-        player.getMusicPlayer(player.getId()).stop();
-    }
-    public void stopPlayer(Player player) {
-        player.getMusicPlayer(player.getId()).stop();
+    public void stopPlayer(Player player){
+        player.stop();
     }
 
     public void updatePlayer(Player player) {
@@ -110,6 +107,4 @@ public class PlayerLab {
         );
         return new PlayerCursorWrapper(cursor);
     }
-
-
 }

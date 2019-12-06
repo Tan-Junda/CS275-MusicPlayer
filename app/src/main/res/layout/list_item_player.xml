@@ -4,32 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="80dp">
 
-
-    <TextView
-        android:id="@+id/list_title"
-        android:layout_width="285dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="5dp"
-        android:text="list1"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <ImageView
-        android:id="@+id/list_playing"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/pause_button"
-        app:layout_constraintStart_toEndOf="@+id/list_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_app" />
 
     <ImageButton
         android:id="@+id/play_button"
@@ -52,6 +28,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_title"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/list_playing"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pause_button"
+        app:layout_constraintStart_toEndOf="@+id/list_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_app" />
+
+    <TextView
+        android:id="@+id/list_title"
+        android:layout_width="285dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="#8B3216"
+        android:ellipsize="middle"
+        android:fontFamily="casual"
+        android:text="Music1"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

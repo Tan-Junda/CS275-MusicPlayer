@@ -22,7 +22,7 @@ public class PlayerListActivity extends SingleFragmentActivity implements
             Intent intent = PlayerPagerActivity.newIntent(this, player.getId());
             startActivity(intent);
         } else {
-            Fragment newDetail = PlayerFragment.newInstance(player.getId()z);
+            Fragment newDetail = PlayerFragment.newInstance(player.getId());
             getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container,
                     newDetail).commit();
         }
